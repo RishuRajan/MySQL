@@ -1,0 +1,251 @@
+Practice Exercise #1:
+Based on the employees table below, select all fields from the employees table whose salary is less than or equal to $52,500 (no sorting is required):
+=>
+CREATE TABLE employees
+( employee_number int NOT NULL,
+  last_name char(50) NOT NULL,
+  first_name char(50) NOT NULL,
+  salary int,
+  dept_id int,
+  CONSTRAINT employees_pk PRIMARY KEY (employee_number)
+);
+
+INSERT INTO employees
+(employee_number, last_name, first_name, salary, dept_id)
+VALUES
+(1001, 'Smith', 'John', 62000, 500);
+
+INSERT INTO employees
+(employee_number, last_name, first_name, salary, dept_id)
+VALUES
+(1002, 'Anderson', 'Jane', 57500, 500);
+
+INSERT INTO employees
+(employee_number, last_name, first_name, salary, dept_id)
+VALUES
+(1003, 'Everest', 'Brad', 71000, 501);
+
+INSERT INTO employees
+(employee_number, last_name, first_name, salary, dept_id)
+VALUES
+(1004, 'Horvath', 'Jack', 42000, 501);
+
+Solution for Practice Exercise #1:
+The following SQL SELECT statement would select these records from the employees table:
+
+Try It
+SELECT *
+FROM employees
+WHERE salary <= 52500;
+These are the results that you should see:
+
+employee_number	last_name	first_name	salary	dept_id
+1004	Horvath	Jack	42000	501
+
+Practice Exercise #2:
+Based on the suppliers table below, select the unique city values that reside in the state of California and order the results in descending order by city:
+
+CREATE TABLE suppliers
+( supplier_id int NOT NULL,
+  supplier_name char(50) NOT NULL,
+  city char(50),
+  state char(25),
+  CONSTRAINT suppliers_pk PRIMARY KEY (supplier_id)
+);
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(100, 'Microsoft', 'Redmond', 'Washington');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(200, 'Google', 'Mountain View', 'California');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(300, 'Oracle', 'Redwood City', 'California');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(400, 'Kimberly-Clark', 'Irving', 'Texas');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(500, 'Tyson Foods', 'Springdale', 'Arkansas');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(600, 'SC Johnson', 'Racine', 'Wisconsin');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(700, 'Dole Food Company', 'Westlake Village', 'California');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(800, 'Flowers Foods', 'Thomasville', 'Georgia');
+
+INSERT INTO suppliers
+(supplier_id, supplier_name, city, state)
+VALUES
+(900, 'Electronic Arts', 'Redwood City', 'California');
+Solution for Practice Exercise #2:
+The following SELECT statement would select these records from the suppliers table:
+
+Try It
+SELECT DISTINCT city
+FROM suppliers
+WHERE state = 'California'
+ORDER BY city DESC;
+These are the results that you should see:
+
+city
+Westlake Village
+Redwood City
+Mountain View
+
+Practice Exercise #3:
+Based on the customers table and the orders table below, select the customer_id and last_name from the customers table and select the order_date from the orders table where there is a matching customer_id value in both the customers and orders tables. Order the results by customer_id in descending order.
+
+CREATE TABLE customers
+( customer_id int NOT NULL,
+  last_name char(50) NOT NULL,
+  first_name char(50) NOT NULL,
+  favorite_website char(50),
+  CONSTRAINT customers_pk PRIMARY KEY (customer_id)
+);
+
+CREATE TABLE orders
+( order_id int NOT NULL,
+  customer_id int,
+  order_date date,
+  CONSTRAINT orders_pk PRIMARY KEY (order_id)
+);
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(4000, 'Jackson', 'Joe', 'techonthenet.com');
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(5000, 'Smith', 'Jane', 'digminecraft.com');
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(6000, 'Ferguson', 'Samantha', 'bigactivities.com');
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(7000, 'Reynolds', 'Allen', 'checkyourmath.com');
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(8000, 'Anderson', 'Paige', NULL);
+
+INSERT INTO customers
+(customer_id, last_name, first_name, favorite_website)
+VALUES
+(9000, 'Johnson', 'Derek', 'techonthenet.com');
+
+INSERT INTO orders
+(order_id, customer_id, order_date)
+VALUES
+(1,7000,'2016/04/18');
+
+INSERT INTO orders
+(order_id, customer_id, order_date)
+VALUES
+(2,5000,'2016/04/18');
+
+INSERT INTO orders
+(order_id, customer_id, order_date)
+VALUES
+(3,8000,'2016/04/19');
+
+INSERT INTO orders
+(order_id, customer_id, order_date)
+VALUES
+(4,4000,'2016/04/20');
+
+INSERT INTO orders
+(order_id, customer_id, order_date)
+VALUES
+(5,null,'2016/05/01');
+
+
+Solution for Practice Exercise #3:
+The following SQL SELECT statement would select these records from the customers and orders table (using an INNER JOIN):
+
+Try It
+SELECT customers.customer_id, customers.last_name, orders.order_date
+FROM customers 
+INNER JOIN orders
+ON customers.customer_id = orders.customer_id
+ORDER BY customers.customer_id DESC;
+These are the results that you should see:
+
+customer_id	last_name	order_date
+8000	Anderson	2016/04/19
+5000	Smith	2016/04/18
+7000	Reynolds	2016/04/18
+4000	Jackson	2016/04/20
+
+Practice Exercise #4:
+Based on the customers and orders table from Practice Exercise #3, select the customer_id and last_name from the customers table where there is a record in the orders table for that customer_id. Order the results in ascending order by last_name and then descending order by customer_id.
+
+CREATE TABLE customers
+( customer_id int NOT NULL,
+  last_name char(50) NOT NULL,
+  first_name char(50) NOT NULL,
+  favorite_website char(50),
+  CONSTRAINT customers_pk PRIMARY KEY (customer_id)
+);
+
+CREATE TABLE orders
+( order_id int NOT NULL,
+  customer_id int,
+  order_date date,
+  CONSTRAINT orders_pk PRIMARY KEY (order_id)
+);
+
+Solution for Practice Exercise #4:
+The following SQL SELECT statement would select the records from the customers and orders table (using the SQL EXISTS clause):
+
+Try It
+SELECT customer_id, last_name
+FROM customers
+WHERE EXISTS
+  ( SELECT orders.customer_id
+    FROM orders
+    WHERE orders.customer_id = customers.customer_id )
+ORDER BY last_name ASC, customer_id DESC;
+Or alternatively you could exclude the ASC keyword for customer_name in the ORDER BY clause. Both of these SELECT statements would generate the same results:
+
+Try It
+SELECT customer_id, last_name
+FROM customers
+WHERE EXISTS
+  ( SELECT orders.customer_id
+    FROM orders
+    WHERE orders.customer_id = customers.customer_id )
+ORDER BY last_name, customer_id DESC;
+These are the results that you should see:
+
+customer_id	last_name
+8000	Anderson
+4000	Jackson
+7000	Reynolds
+5000	Smith
