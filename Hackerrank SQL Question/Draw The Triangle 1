@@ -1,0 +1,6 @@
+//PROBLEM LINK- https://www.hackerrank.com/challenges/draw-the-triangle-1/problem
+
+//SOURCE CODE-
+
+set @number = 21;
+select repeat('* ', @number := @number - 1) from information_schema.tables;
