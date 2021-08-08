@@ -1,0 +1,10 @@
+//PROBLEM LINK- https://www.hackerrank.com/challenges/the-blunder/problem
+
+//SOURCE CODE-
+
+//ORACLE-
+SELECT CEIL(AVG(Salary) - AVG(REPLACE(Salary, '0', '')))
+FROM EMPLOYEES;
+
+//MYSQL-
+SELECT CEIL(AVG(SALARY)-AVG(REPLACE(SALARY,'0',''))) FROM EMPLOYEES;
